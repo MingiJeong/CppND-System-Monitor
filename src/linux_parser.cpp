@@ -228,8 +228,10 @@ string LinuxParser::Command(int pid) {
   if (filestream.is_open()) {
     std::getline(filestream, line);
   }
+  filestream.close();
   return line;
 }
+
 
 string LinuxParser::Ram(int pid) {
 string line;
@@ -266,6 +268,7 @@ string LinuxParser::Uid(int pid) {
       }
     }
   }
+  filestream.close();
   return uid; // if not found, return blank value
 } 
 
@@ -287,6 +290,7 @@ string LinuxParser::User(int pid) {
       }
     }
   }
+  filestream.close();
   return key; // if not found, return blank value
 }
 
@@ -304,5 +308,6 @@ long LinuxParser::UpTime(int pid) {
     state.nice_ >> state.num_thread_ >> state.itrealvalue_ >> state.starttime_ ;  
     return LinuxParser::UpTime() - std::stol(state.starttime_) / sysconf(_SC_CLK_TCK);
   }
+  stream.close();
   return 0;
 }
